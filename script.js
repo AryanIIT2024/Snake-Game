@@ -4,7 +4,7 @@ let FoodSound = new Audio("food.mp3") ;
 let GameOverSound = new Audio("gameover.mp3") ;
 let MoveSound = new Audio("move.mp3") ;
 let MusicSound = new Audio("music.mp3") ;
-let speed =3;
+let speed =5;
 let score = 0;
 let LastPaintTime = 0;
 let snakeArr = [
@@ -41,7 +41,7 @@ function isCollide(snake){
 
 
 function gameEngine(){
-    MusicSound.play();
+    //MusicSound.play();
     //part-1:Updating the snake array and food
     if(isCollide(snakeArr)){
         GameOverSound.play();
@@ -55,6 +55,7 @@ function gameEngine(){
     if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
          FoodSound.play();
          score +=1;
+         scoreBox.innerHTML = "Score :" +score;
         snakeArr.unshift( {x:snakeArr[0].x + inputDir.x ,y:snakeArr[0].y + inputDir.y });
        let a  = 2;
        let b =16;
@@ -93,6 +94,20 @@ function gameEngine(){
 
     
 }
+
+
+let hiscore = localStorage.getItem("hiscore");
+if(hiscore ===null){
+     hiscoreval = 0;
+    localStorage.setItem("highScore",JSON.stringify(hiscoreval))
+}
+else{
+    hiscoreval = JSON.parse(hiscore);
+    highScoreBox.innerHTML = "HighScore:"+ hiscore;
+}
+
+
+
 
 //main logic starts here
 window.requestAnimationFrame(main);
